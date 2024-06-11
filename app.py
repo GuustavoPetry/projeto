@@ -40,7 +40,8 @@ def verifica_credenciais(username, password):
         conn.commit()
         return usuario
     except mysql.connector.errors.DatabaseError:
-        st.error("❌ Dados de acesso inválidos!! ❌")
+        pass
+        # st.error("❌ Dados de acesso inválidos!! ❌")
 
 
 # Interface de login
@@ -58,7 +59,7 @@ def login():
             st.session_state['username'] = usuario['nome_usuario']
             st.experimental_rerun()
         else:
-            st.error("Dados de acesso inválidos!!")
+            st.error("❌ Dados de acesso inválidos!! ❌")
 
 
 def menu():
