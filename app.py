@@ -30,14 +30,17 @@ def deleta_carrinho():
 
 
 def verifica_credenciais(username, password):
-    conn = conexao_db()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT nome_usuario, senha_usuario FROM usuarios "
-                   "WHERE nome_usuario = %s AND senha_usuario = %s", (username, password))
-    usuario = cursor.fetchone()
-    print(usuario)
-    conn.commit()
-    return usuario
+    try:
+        conn = conexao_db()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT nome_usuario, senha_usuario FROM usuarios "
+                       "WHERE nome_usuario = %s AND senha_usuario = %s", (username, password))
+        usuario = cursor.fetchone()
+        print(usuario)
+        conn.commit()
+        return usuario
+    except mysql.connector.errors.DatabaseError:
+        st.error("❌ Dados de acesso inválidos!! ❌")
 
 
 # Interface de login
